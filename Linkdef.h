@@ -21,5 +21,6 @@
 // Wavedump and processing class
 #pragma link C++ class Particle;
 #pragma link C++ class GravField;
+#pragma link C++ class Rocket;
 
 #endif

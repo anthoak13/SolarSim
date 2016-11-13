@@ -10,39 +10,46 @@
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-//Particle
-//Adam Anthony
-//6/30/16
-#ifndef PARTICLE_H
-#define PARTICLE_H
+//Particle implementation
+//Adam Anthony 6/30/16
 
-#ifndef __CINT__
-#include "TObject.h"
-#include "TVector3.h"
-#include <iostream>
-#endif
+#include "TMath.h"
+#include "Rocket.h"
 
-//Class def
-class Particle : public TObject
+ClassImp(Rocket);
+
+Rocket::Rocket()
 {
-protected:
-    Double_t mass;
-    TVector3 position;
-    TVector3 velocity;
+    position = TVector3();
+    velocity = TVector3();
+    mass = 0;
+    dm = 0;
+    Vex = 0;
+}
+Rocket::Rocket(const TVector3 pos, const TVector3 vel, const Double_t massIn,
+		   const Double_t dmIn, const Double_t VexIn)
+{
+    position = pos;
+    velocity = TVector3(vel);
+    mass = massIn;
+    dm = dmIn;
+    Vex = VexIn;
+
+}
+
+//accel in N, time in seconds
+void Rocket::update(const TVector3 a, const UInt_t time, const bool thrust)
+{
+    if (thrust)
+    {
+	position += time * (velocity + 0.5 * a * time + Vex*dm/(2*mass)*velocity.Unit());
+	velocity += a * time + Vex*dm/mass*velocity.Unit();
+    }
+    else
+    {
+	position += time * (velocity + 0.5 * a * time);
+	velocity += a * time;
+    }
+}
 
 
-public:
-    Particle();
-    Particle(const TVector3 pos, const TVector3 vel, const Double_t mass);
-    
-    void update(const TVector3 force, const UInt_t time);
-    void print() const;
-
-    TVector3 getPos() const {return position; }
-    TVector3 getVel() const {return velocity; }
-    Double_t getM() const {return mass;}
-
-    ClassDef(Particle, 1)
-};
-
-#endif

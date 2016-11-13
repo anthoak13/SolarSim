@@ -13,36 +13,32 @@
 //Particle
 //Adam Anthony
 //6/30/16
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef ROCKET_H
+#define ROCKET_H
 
 #ifndef __CINT__
 #include "TObject.h"
 #include "TVector3.h"
+#include "Particle.h"
 #include <iostream>
 #endif
 
 //Class def
-class Particle : public TObject
+class Rocket : public Particle
 {
-protected:
-    Double_t mass;
-    TVector3 position;
-    TVector3 velocity;
-
+private:
+    Double_t  dm;
+    Double_t Vex;
+    
 
 public:
-    Particle();
-    Particle(const TVector3 pos, const TVector3 vel, const Double_t mass);
+    Rocket();
+    Rocket(const TVector3 pos, const TVector3 vel, const Double_t mass,
+	     const Double_t dm, const Double_t Vex);
     
-    void update(const TVector3 force, const UInt_t time);
-    void print() const;
+    void update(const TVector3 accel, const UInt_t time, const bool thrust = false);
 
-    TVector3 getPos() const {return position; }
-    TVector3 getVel() const {return velocity; }
-    Double_t getM() const {return mass;}
-
-    ClassDef(Particle, 1)
+    ClassDef(Rocket, 1)
 };
 
 #endif
