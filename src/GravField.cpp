@@ -49,3 +49,21 @@ TVector3 GravField::getForce(const vParticle& objects, const UInt_t  objNum) con
 
     return F;
 }
+
+TVector3 GravField::getA(const vParticle& objects, const UInt_t  objNum) const
+{
+    TVector3 F;
+    Particle target = objects[objNum];
+
+    for(int i =0; i < objects.size() && i != objNum; i++)
+    {
+	Particle planet = objects[i];
+	auto r = target.getPos() - planet.getPos();
+	auto modr = r.Mag();
+
+	F += -(TMath::G()*planet.getM())/(modr*modr*modr)*r;
+    }
+
+    return F;
+}
+

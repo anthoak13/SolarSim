@@ -31,11 +31,11 @@ Particle::Particle(const TVector3 pos, const TVector3 vel, const Double_t massIn
     mass = massIn;
 }
 
-//Force in N, time in seconds
+//accel in N, time in seconds
 void Particle::update(const TVector3 F, const UInt_t time)
 {
-    position += velocity*time + 0.5*F*(1/mass) * time * time;
-    velocity += F*(1/mass)*time;
+    position += velocity*time + 0.5*F * time * time;
+    velocity += F*time;
 }
 
 void Particle::print() const

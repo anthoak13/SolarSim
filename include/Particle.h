@@ -39,6 +39,7 @@ public:
     void print() const;
 
     TVector3 getPos() const {return position; }
+    TVector3 getVel() const {return velocity; }
     Double_t getM() const {return mass;}
 
     ClassDef(Particle, 1)

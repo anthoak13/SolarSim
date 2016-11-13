@@ -34,6 +34,7 @@ public:
     
     TVector3 getForce( vParticle& objects, const Particle& pos) const;
     TVector3 getForce(const vParticle& objects, const UInt_t  objNum) const;
+    TVector3 getA(const vParticle& objects, const UInt_t  objNum) const;
     
     ClassDef(GravField, 1)
 };
